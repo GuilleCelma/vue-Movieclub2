@@ -70,9 +70,33 @@ export default class Movies extends VuexModule {
         @Action({commit: 'setSearchedResults'})
          async loadSearch(searchValue:string){
 
+          console.log(searchValue)
             // Obtener la informacion de las Movies haciendo una llamada a la API con el valor del input de busqueda interpolado en la URL 
-            const search = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=3c59a1bf1cbd14333e0179f3dd37c4db&language=en-US&query=${searchValue}&page=1&include_adult=false`)
+            const search = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=3c59a1bf1cbd14333e0179f3dd37c4db&language=en-US&query=`+searchValue )
+            console.log(search.data.results)
 
-
+            console.log(`https://api.themoviedb.org/3/search/movie?api_key=3c59a1bf1cbd14333e0179f3dd37c4db&language=en-US&query=`+searchValue)
+            // Realizar commit(Mutacion) con la informacion que devuelve el return
+            return search.data.results
           }
+        
+        @Mutation
+        setSearchedResults(search:any[]){
+
+          const formatedSearch: movie[] = []
+
+          search.map((movie)=>{
+            const formatedMovie={
+              id: movie.id,
+              title: movie.title,
+              image: movie.poster_path,
+              date: movie.release_date,
+              description: movie.overview,
+              average: movie.vote_average
+            }
+            console.log(formatedMovie)
+            formatedSearch.push(formatedMovie)
+          })
+          return this.searchResults = formatedSearch
+        }
 }
