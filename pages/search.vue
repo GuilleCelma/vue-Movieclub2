@@ -10,7 +10,7 @@
         </div>
       </section>
     </div>
-    <div v-if='searchedPeople.length > 0' >
+    <div v-else >
       <section id="intro" class=" flex flex-col items-center">
         <h2 class="my-12 text-xl">
           Celebrities Search Results
