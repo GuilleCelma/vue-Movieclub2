@@ -13,6 +13,7 @@ interface movie{
 
 const key:string | undefined = process.env.API_KEY
 const url:string = `https://api.themoviedb.org/3/movie/top_rated?api_key=${key}&language=en-US&page=1`
+const search: string = `https://api.themoviedb.org/3/search/movie?api_key=3c59a1bf1cbd14333e0179f3dd37c4db&language=en-US&query=jurassic&page=1&include_adult=false`
 
 @Module({
   name: 'movies',
@@ -20,7 +21,7 @@ const url:string = `https://api.themoviedb.org/3/movie/top_rated?api_key=${key}&
   namespaced: true
 })
 
-export default class movies extends VuexModule {
+export default class Movies extends VuexModule {
 
      // <------------ Carga Inicial de Movies ---------------------------------->
      
@@ -32,10 +33,10 @@ export default class movies extends VuexModule {
 
         @Action({ commit: 'setMovies' })
         async loadMovies () {
-          // Obtener la informacion de las movies de la API
+          // Obtener la informacion de las Movies haciendo una llamada a la API
           const movies = await axios.get(url)
-
-          // Realizar commit con la informacion
+          
+          // Realizar commit(Mutacion) con la informacion que devuelve el return
           return movies.data.results
         }
 
@@ -57,4 +58,21 @@ export default class movies extends VuexModule {
 
           this.movies = formatedMovies // Seteamos el estado movies creado al principio con el nuevo array formateado
         }
+
+        // <------------ Search Results de Movies ---------------------------------->
+
+        searchResults:movie[] = []
+
+        get searchedArray () {
+          return this.searchResults
+        }
+
+        @Action({commit: 'setSearchedResults'})
+         async loadSearch(searchValue:string){
+
+            // Obtener la informacion de las Movies haciendo una llamada a la API con el valor del input de busqueda interpolado en la URL 
+            const search = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=3c59a1bf1cbd14333e0179f3dd37c4db&language=en-US&query=${searchValue}&page=1&include_adult=false`)
+
+
+          }
 }

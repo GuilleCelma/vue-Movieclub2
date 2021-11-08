@@ -5,7 +5,7 @@
         Top Rated Movies
       </h2>
       <div class="flex flex-wrap justify-center items-center">
-        <InfoCard v-for="movie in movies" id="moviesContainer" :key="movie.title" :props="movie" />
+        <MovieCard v-for="movie in movies" id="moviesContainer" :key="movie.title" :props="movie" />
       </div>
     </section>
   </div>
@@ -16,9 +16,11 @@
 import { moviesStore } from '../store/index'
 
 export default {
-  asyncData () {
+
+  fetch () {
     return moviesStore.loadMovies()
   },
+
   computed: {
     movies () {
       return moviesStore.movies

@@ -23,6 +23,7 @@
 
 <script lang="ts">
 export default {
+  
   props: ['props'],
   data () {
     return {
