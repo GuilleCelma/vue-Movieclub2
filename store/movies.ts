@@ -13,7 +13,7 @@ interface movie{
 
 const key:string | undefined = process.env.API_KEY
 const url:string = `https://api.themoviedb.org/3/movie/top_rated?api_key=${key}&language=en-US&page=1`
-const search: string = `https://api.themoviedb.org/3/search/movie?api_key=3c59a1bf1cbd14333e0179f3dd37c4db&language=en-US&query=jurassic&page=1&include_adult=false`
+
 
 @Module({
   name: 'movies',
@@ -81,8 +81,10 @@ export default class Movies extends VuexModule {
         @Mutation
         setSearchedResults(search:any[]){
 
-          const formatedSearch: movie[] = []
+          // Variable donde storeamos temporalmente cada movie formateada con la estructura que nos interesa
+          const formatedSearch: movie[] = [] 
 
+          // Mapeamos el array devuelto por la API y por cada movie extraemos solo la informacion necesaria,luego pusheamos a la variable anteriormente creada 
           search.map((movie)=>{
             const formatedMovie={
               id: movie.id,
@@ -92,9 +94,26 @@ export default class Movies extends VuexModule {
               description: movie.overview,
               average: movie.vote_average
             }
-            console.log(formatedMovie)
+            
             formatedSearch.push(formatedMovie)
           })
+          // Seteamos el estado searchResults creado al principio con el nuevo array formateado
+
           return this.searchResults = formatedSearch
         }
+
+        // <------------Reseting Search State -------------->
+
+        @Action({commit: 'setReset'})
+
+          loadReset(){
+            return console.log("movies reseted")
+          }
+        
+        @Mutation
+          setReset(){
+            return this.searchResults = []
+          }
+
+        
 }

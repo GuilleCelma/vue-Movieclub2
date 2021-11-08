@@ -1,14 +1,26 @@
 <template>
+  <div>
     <div v-if='searchedMovies.length > 0' >
       <section id="intro" class=" flex flex-col items-center">
         <h2 class="my-12 text-xl">
-          Top Rated Movies
+          Movies Search Results
         </h2>
         <div class="flex flex-wrap justify-center items-center">
-          <MovieCard v-for="movie in searchedMovies"  id="moviesContainer" :key="movie.title" :props="movie"/>
+          <MovieCard v-for="movie in searchedMovies" :key="movie.title" :props="movie"/>
         </div>
       </section>
     </div>
+    <div v-if='searchedPeople.length > 0' >
+      <section id="intro" class=" flex flex-col items-center">
+        <h2 class="my-12 text-xl">
+          Celebrities Search Results
+        </h2>
+        <div class="flex flex-wrap justify-center items-center">
+          <CelebCard v-for="celeb in searchedPeople" :key="celeb.name" :props="celeb"/>
+        </div>
+      </section>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -23,9 +35,11 @@ export default {
         const imageFilter = movies.filter((movie)=>movie.image !== null)
         return imageFilter
     },
-    /* searchedPeople (){
-      return celebritiesStore.searchResults
-    }, */
+     searchedPeople (){
+       const movies = celebritiesStore.searchResults
+       const imageFilter = movies.filter((movie)=>movie.image !== null)
+      return imageFilter
+    }, 
 
   },
   

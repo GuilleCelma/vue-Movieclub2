@@ -19,7 +19,7 @@ import { celebritiesStore } from '../store/index'
 
 export default {
   
-  asyncData (){
+  fetch (){
     return celebritiesStore.loadCeleb()
   },
   computed:{
