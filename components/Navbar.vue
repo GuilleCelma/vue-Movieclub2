@@ -18,6 +18,7 @@
             <ul class="navigation flex mr-12 items-center" >
                 <li><Nuxt-link class="no-underline font-bold mr-5 " to="/movies">Movies</Nuxt-link></li>
                 <li><Nuxt-link class="no-underline font-bold mr-5" to="/people">People</Nuxt-link></li>
+                <li><Nuxt-link class="no-underline font-bold mr-5" to="/favorites">Favorites</Nuxt-link></li>
             </ul>
         </nav>
     </header>

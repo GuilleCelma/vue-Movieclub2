@@ -21,7 +21,7 @@
         <font-awesome-icon :icon="['fas','heart']" class="text-white" @click="addFav(props.id)"/>
       </button>
       <button  v-else  class='absolute top-1 p-2 bg-gray-700  bg-opacity-60 rounded-full right-1 h-12 w-12' >
-        <font-awesome-icon :icon="['fas','heart']" class="text-red-400"  @click="removeFav"/>
+        <font-awesome-icon :icon="['fas','heart']" class="text-red-400"  @click="removeFav(props.id)"/>
       </button>
   </div>
 </template>
@@ -45,9 +45,9 @@ export default {
     addFav(movieId: number){
       moviesStore.loadFavorites(movieId)
     },
-    removeFav(){
-      this.fav = false
-      console.log(this.fav)
+    removeFav(movieId : number){
+      
+      moviesStore.deleteFavorites(movieId)
     }
   }
 }

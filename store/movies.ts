@@ -128,26 +128,46 @@ export default class Movies extends VuexModule {
             return this.favMovies
           }
 
+          // Accion que llama a la Mutacion add Favorites
           @Action({commit: 'addFavorites'})
-
-          loadFavorites(movieId: number){
-              console.log(this.favMovies)
+            loadFavorites(movieId: number){
               return movieId
           }
 
-          @Mutation
-          addFavorites(movieId:number){
-          
-          // Buscamos en nuestro estado Movies el objeto movie añadido a favoritos mediante el Id
-          const selectedMovie:movie =  this.movies.filter( (movie)=>movie.id === movieId)[0]
-          
-          //Buscamos el index al que equivale la Movie selecionada y cambiamos su propiedad favortie a true
-          this.movies[this.movies.indexOf(selectedMovie)].favorite = true
-          
-          // Pusheamos la Movie selecionado al estado de favoritos
-          return this.favMovies.push(selectedMovie)
+          // Accion que llama a la Mutacion delete Favorites
+          @Action({commit: 'deleteFavorites'})
+            removeFavorites(movieId: number){
+              return movieId
           }
 
+
+          @Mutation
+            addFavorites(movieId:number){
+          
+              // Buscamos en nuestro estado Movies el objeto movie añadido a favoritos mediante el Id
+              const selectedMovie:movie =  this.movies.filter( (movie)=>movie.id === movieId)[0]
+          
+              //Buscamos el index al que equivale la Movie selecionada y cambiamos su propiedad favortie a true
+              this.movies[this.movies.indexOf(selectedMovie)].favorite = true
+              console.log(this.favMovies)
+              // Pusheamos la Movie selecionado al estado de favoritos
+              return this.favMovies.push(selectedMovie)
+            }
+
+          @Mutation
+            deleteFavorites(movieId:number){
+          
+              // Buscamos en nuestro estado Movies el objeto movie  mediante el Id
+              const selectedMovie:movie =  this.movies.filter( (movie)=>movie.id === movieId)[0]
+          
+              //Buscamos el index al que equivale la Movie selecionada y cambiamos su propiedad favortie a false
+              this.movies[this.movies.indexOf(selectedMovie)].favorite = false
+
+              // Filtramos el estado favoritos y devolvemos un nuevo array con todas las movies que su propiedad ID no coincide con la movie selecionada para borrar
+              const filteredFavorites = this.favMovies.filter((movie)=>movie.id !== movieId)
+              
+              return this.favMovies = filteredFavorites
+          }
 
           
 }
