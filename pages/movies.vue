@@ -29,30 +29,30 @@ export default {
       page:1
     }
   },
-
   fetch () {
     return moviesStore.loadMovies()
   },
-
   computed: {
     movies () {
       return moviesStore.movies
     },
-    
   },
   methods:{
     nextPage ():number {
       moviesStore.loadPage(this.page + 1)
-      this.$router.push('#intro')
       return this.page ++
     },
     lastPage ():any {
-
       if(this.page > 1){
-
         moviesStore.loadPage(this.page - 1)
-        this.$router.push('#intro')
         return this.page -- 
+      }
+    }
+  },
+  watch:{
+    page(newValue){
+      if(newValue !== 0){
+        window.scrollTo(0, 0)
       }
     }
   }
@@ -62,9 +62,5 @@ export default {
 </script>
 
 <style scoped>
-
-section{
-  height: 150vh;
-}
 
 </style>

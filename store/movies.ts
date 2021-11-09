@@ -173,7 +173,7 @@ export default class Movies extends VuexModule {
 
           @Action({commit:'setMovies'})
             async loadPage(page:number){
-              // Obtener la informacion de las Movies haciendo una llamada a la API con el valor del input de la variable page interpolado en la URL 
+              // Obtener la informacion de las Movies haciendo una llamada a la API con el valor de la variable page interpolado en la URL 
               const moviePage = await axios.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=3c59a1bf1cbd14333e0179f3dd37c4db&language=en-US&page=${page}`)
               
               // Realizar commit(Mutacion) con la informacion que devuelve el return

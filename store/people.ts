@@ -99,5 +99,15 @@ export default class People extends VuexModule{
        // Seteamos el estado searchResults creado al principio con el nuevo array formateado
       return this.searchResults = formatedSearch 
     }
-}
 
+// <-----------------------Paginacion de Movies ----------------------->
+
+   @Action({commit: 'setCelebrities'})
+    async loadPage( page: number){
+      // Obtener la informacion de las Celebrities haciendo una llamada a la API con el valor de la variable page interpolado en la URL 
+      const peoplePage = await axios.get(`https://api.themoviedb.org/3/person/popular?api_key=3c59a1bf1cbd14333e0179f3dd37c4db&language=en-US&page=${page}`) 
+
+      // Realizar commit(Mutacion) con la informacion que devuelve el return
+      return peoplePage.data.results
+    }
+}
