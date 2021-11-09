@@ -9,8 +9,9 @@ interface celeb {
   rating: number
 }
 
+
 const key:string | undefined = process.env.API_KEY
-const url:string = `https://api.themoviedb.org/3/person/popular?api_key=3c59a1bf1cbd14333e0179f3dd37c4db&language=en-US&page=1`
+const url:string = `https://api.themoviedb.org/3/person/popular?api_key=${key}&language=en-US&page=1`
 
 
 @Module({

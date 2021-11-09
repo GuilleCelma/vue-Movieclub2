@@ -18,7 +18,7 @@
 
 </template>
 
-<script lang="ts">
+<script >
 
 import { moviesStore } from '../store/index'
 
@@ -38,11 +38,11 @@ export default {
     },
   },
   methods:{
-    nextPage ():number {
+    nextPage () {
       moviesStore.loadPage(this.page + 1)
       return this.page ++
     },
-    lastPage ():any {
+    lastPage () {
       if(this.page > 1){
         moviesStore.loadPage(this.page - 1)
         return this.page -- 

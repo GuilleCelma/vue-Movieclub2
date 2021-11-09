@@ -26,7 +26,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script >
 import { moviesStore } from '../store/index'
 
 export default {
@@ -42,10 +42,10 @@ export default {
     }
   },
   methods:{
-    addFav(movieId: number){
+    addFav(movieId){
       moviesStore.loadFavorites(movieId)
     },
-    removeFav(movieId : number){
+    removeFav(movieId){
       
       moviesStore.deleteFavorites(movieId)
     }
