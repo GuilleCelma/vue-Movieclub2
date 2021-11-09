@@ -2,7 +2,7 @@
     <header >
         <nav class=" h-24 flex justify-between items-center shadow-lg w-full">
             <div class="logo flex items-center ml-13">
-                <h2 class="text-5xl">Movieclub</h2>
+                <h2 class="text-5xl ml-10">Movieclub</h2>
             </div>
             <form action="">
               <input id="searchBar" v-model="searchValue" class="border-2 border-gray-300 bg-gray-100 h-10 mr-0  px-2  rounded-lg text-sm focus:outline-none" type="search" name="search" placeholder="Search.."/>
@@ -56,11 +56,9 @@ export default {
 </script>
 
 <style scope>
-   
-    #searchBar{
-        width: 400px;
-    }
+
+  #searchBar{
+    width: 400px;
+  }
     
-
-
 </style>

@@ -120,7 +120,7 @@ export default class Movies extends VuexModule {
             return this.searchResults = []
           }
 
-          // <------------Manipulacion de favoritos -------------->
+        // <------------------------Manipulacion de favoritos ----------------------->
 
           favMovies: movie[] = []
 
@@ -169,5 +169,17 @@ export default class Movies extends VuexModule {
               return this.favMovies = filteredFavorites
           }
 
+          // <-----------------------Paginacion de Movies ----------------------->
+
+          @Action({commit:'setMovies'})
+            async loadPage(page:number){
+              // Obtener la informacion de las Movies haciendo una llamada a la API con el valor del input de la variable page interpolado en la URL 
+              const moviePage = await axios.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=3c59a1bf1cbd14333e0179f3dd37c4db&language=en-US&page=${page}`)
+              
+              // Realizar commit(Mutacion) con la informacion que devuelve el return
+              return moviePage.data.results
+            }
           
 }
+
+
