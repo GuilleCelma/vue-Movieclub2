@@ -10,7 +10,7 @@ interface celeb {
 }
 
 
-const key:string | undefined = process.env.API_KEY
+const key:string | undefined = process.env.NUXT_ENV_API_KEY
 const url:string = `https://api.themoviedb.org/3/person/popular?api_key=${key}&language=en-US&page=1`
 
 
@@ -72,7 +72,7 @@ export default class People extends VuexModule{
        async loadSearch(searchValue: string){
 
            // Obtener la informacion de las Movies haciendo una llamada a la API con el valor del input de busqueda interpolado en la URL 
-           const search = await axios.get(`https://api.themoviedb.org/3/search/person?api_key=3c59a1bf1cbd14333e0179f3dd37c4db&language=en-US&query=${searchValue}&page=1&include_adult=false`)
+           const search = await axios.get(`https://api.themoviedb.org/3/search/person?api_key=${process.env.NUXT_ENV_API_KEY}&language=en-US&query=${searchValue}&page=1&include_adult=false`)
 
            console.log("entra en actions")
            // Realizar commit(Mutacion) con la informacion que devuelve el return
@@ -106,7 +106,7 @@ export default class People extends VuexModule{
    @Action({commit: 'setCelebrities'})
     async loadPage( page: number){
       // Obtener la informacion de las Celebrities haciendo una llamada a la API con el valor de la variable page interpolado en la URL 
-      const peoplePage = await axios.get(`https://api.themoviedb.org/3/person/popular?api_key=3c59a1bf1cbd14333e0179f3dd37c4db&language=en-US&page=${page}`) 
+      const peoplePage = await axios.get(`https://api.themoviedb.org/3/person/popular?api_key=${process.env.NUXT_ENV_API_KEY}&language=en-US&page=${page}`) 
 
       // Realizar commit(Mutacion) con la informacion que devuelve el return
       return peoplePage.data.results

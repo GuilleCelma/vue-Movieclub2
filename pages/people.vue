@@ -19,7 +19,7 @@
 </div>
 </template>
 
-<script lang="ts">
+<script >
 import { celebritiesStore } from '../store/index'
 
 export default {
@@ -38,11 +38,11 @@ export default {
     }
   },
   methods:{
-    nextPage(page: number){
+    nextPage(page){
       celebritiesStore.loadPage(this.page + 1)
       this.page ++
     },
-    lastPage(page: number){
+    lastPage(page){
       if(this.page > 1){
         celebritiesStore.loadPage(this.page - 1)
         this.page --
