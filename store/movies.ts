@@ -7,8 +7,9 @@ interface movie{
     title: string,
     image:string,
     date: string,
-    description:string,
-    average:number
+    description: string,
+    average: number,
+    favorite: boolean
 }
 
 const key:string | undefined = process.env.API_KEY
@@ -50,8 +51,9 @@ export default class Movies extends VuexModule {
               title: movie.title,
               image: movie.poster_path,
               date: movie.release_date,
-              description: movie.overview,
-              average: movie.vote_average
+              description: movie.overview.slice(0,100) + '...',
+              average: movie.vote_average,
+              favorite: false
             }
             formatedMovies.push(formatedMovie)
           })
@@ -91,8 +93,9 @@ export default class Movies extends VuexModule {
               title: movie.title,
               image: movie.poster_path,
               date: movie.release_date,
-              description: movie.overview,
-              average: movie.vote_average
+              description: movie.overview.slice(0,100) + '...',
+              average: movie.vote_average,
+              favorite: false
             }
             
             formatedSearch.push(formatedMovie)
@@ -102,7 +105,9 @@ export default class Movies extends VuexModule {
           return this.searchResults = formatedSearch
         }
 
-        // <------------Reseting Search State -------------->
+
+
+        // <------------Reseteando Search State -------------->
 
         @Action({commit: 'setReset'})
 
@@ -115,5 +120,34 @@ export default class Movies extends VuexModule {
             return this.searchResults = []
           }
 
-        
+          // <------------Manipulacion de favoritos -------------->
+
+          favMovies: movie[] = []
+
+          get favoritesArray(){
+            return this.favMovies
+          }
+
+          @Action({commit: 'addFavorites'})
+
+          loadFavorites(movieId: number){
+              console.log(this.favMovies)
+              return movieId
+          }
+
+          @Mutation
+          addFavorites(movieId:number){
+          
+          // Buscamos en nuestro estado Movies el objeto movie añadido a favoritos mediante el Id
+          const selectedMovie:movie =  this.movies.filter( (movie)=>movie.id === movieId)[0]
+          
+          //Buscamos el index al que equivale la Movie selecionada y cambiamos su propiedad favortie a true
+          this.movies[this.movies.indexOf(selectedMovie)].favorite = true
+          
+          // Pusheamos la Movie selecionado al estado de favoritos
+          return this.favMovies.push(selectedMovie)
+          }
+
+
+          
 }

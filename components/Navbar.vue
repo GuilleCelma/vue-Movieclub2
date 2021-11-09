@@ -23,7 +23,7 @@
     </header>
 </template>
 
-<script setup lang="ts">
+<script >
 import { celebritiesStore, moviesStore } from '../store/index'
 
 
@@ -35,7 +35,7 @@ export default {
     }
   },
   methods:{
-      startSearch (searchValue: string){
+      startSearch (searchValue){
           if(this.searchOption==='movies'){
               
               moviesStore.loadSearch(this.searchValue),

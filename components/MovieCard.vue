@@ -16,12 +16,19 @@
         <span class="font-bold">
           {{ props.average }} </span>
       </h1>
-      <a class="text-xs absolute bottom-6 right-10" :href="urlMovie + props.id" target="_blank">Details</a>
     </div>
+      <button  v-if="props.favorite === false" class='absolute top-1 p-0.5 bg-gray-700 bg-opacity-60 rounded-full right-1 h-12 w-12'>
+        <font-awesome-icon :icon="['fas','heart']" class="text-white" @click="addFav(props.id)"/>
+      </button>
+      <button  v-else  class='absolute top-1 p-2 bg-gray-700  bg-opacity-60 rounded-full right-1 h-12 w-12' >
+        <font-awesome-icon :icon="['fas','heart']" class="text-red-400"  @click="removeFav"/>
+      </button>
   </div>
 </template>
 
 <script lang="ts">
+import { moviesStore } from '../store/index'
+
 export default {
   
   props: ['props'],
@@ -30,7 +37,17 @@ export default {
       urlImg: 'https://image.tmdb.org/t/p/original',
       urlMovie: 'https://www.themoviedb.org/movie/',
       data: this.props,
-      hover: false
+      hover: false,
+      fav: false
+    }
+  },
+  methods:{
+    addFav(movieId: number){
+      moviesStore.loadFavorites(movieId)
+    },
+    removeFav(){
+      this.fav = false
+      console.log(this.fav)
     }
   }
 }
