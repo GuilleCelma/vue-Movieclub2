@@ -59,7 +59,7 @@ export default class Movies extends VuexModule {
               }
               formatedMovies.push(formatedMovie)
             })
-            console.log(formatedMovies)
+            
             this.movies = formatedMovies // Seteamos el estado movies creado al principio con el nuevo array formateado
 
           }

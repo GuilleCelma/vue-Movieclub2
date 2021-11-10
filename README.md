@@ -25,6 +25,7 @@ The purpose of this project was to get familiar with Vue, Nuxt and Vuex.
 - Vuejs3 
 - Nuxt 2 
 - Vuex 4
+- TypeScript
 - Tailwind css
 - theMovieDB API
 
