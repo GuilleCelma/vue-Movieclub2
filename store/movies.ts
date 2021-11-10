@@ -43,28 +43,32 @@ export default class Movies extends VuexModule {
 
         @Mutation
         setMovies (movies: any[]) {
-          const formatedMovies:movie[] = [] // Variable donde storeamos temporalmente cada movie formateada con la estructura que nos interesa
 
-          movies.map((movie) => { /* Mapeamos el array de Movies devuelto por la API y por cada movie extraemos solo la informacion necesaria,luego pusheamos a la variable anteriormente creada */
-            const formatedMovie = {
-              id: movie.id,
-              title: movie.title,
-              image: movie.poster_path,
-              date: movie.release_date,
-              description: movie.overview.slice(0,100) + '...',
-              average: movie.vote_average,
-              favorite: false
-            }
-            formatedMovies.push(formatedMovie)
-          })
+          if(this.movies.length === 0){
+            const formatedMovies:movie[] = [] // Variable donde storeamos temporalmente cada movie formateada con la estructura que nos interesa
+  
+            movies.map((movie) => { /* Mapeamos el array de Movies devuelto por la API y por cada movie extraemos solo la informacion necesaria,luego pusheamos a la variable anteriormente creada */
+              const formatedMovie = {
+                id: movie.id,
+                title: movie.title,
+                image: movie.poster_path,
+                date: movie.release_date,
+                description: movie.overview.slice(0,100) + '...',
+                average: movie.vote_average,
+                favorite: false
+              }
+              formatedMovies.push(formatedMovie)
+            })
+            console.log(formatedMovies)
+            this.movies = formatedMovies // Seteamos el estado movies creado al principio con el nuevo array formateado
 
-          this.movies = formatedMovies // Seteamos el estado movies creado al principio con el nuevo array formateado
+          }
         }
         
         // <------------ Search Results de Movies ---------------------------------->
         
         searchResults:movie[] = []
-        
+
         //El estado  de movies favoritas necesita estar declarado antes que la mutacion setSearchedResults para poder añadir la condicion de favorito a las movies buscadas
         favMovies: movie[] = []
         
@@ -160,7 +164,7 @@ export default class Movies extends VuexModule {
 
           @Mutation
             addFavorites(movieId:number){
-              console.log(this.favMovies)
+              
               // Buscamos en nuestro estado Movies el objeto movie añadido a favoritos mediante el Id
               const selectedMovie:any =  this.movies.filter( (movie)=>movie.id === movieId)[0]
               
