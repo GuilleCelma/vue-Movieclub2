@@ -11,7 +11,12 @@
       </section>
     </div>
     <div v-else >
-      <section id="intro" class=" flex flex-col items-center">
+      <div v-if='searchedPeople.length <= 0' class=" flex flex-col items-center">
+        <img src='/no-results.jpg' alt="no results found" class="w-80 h-80"/>
+        <h1 class="font-bold text-lg">No results found</h1>
+        <p>We couldn't find what are you looking for.</p>
+      </div>
+      <section v-else id="intro" class=" flex flex-col items-center">
         <h2 class="my-12 text-xl">
           Celebrities Search Results
         </h2>
@@ -27,6 +32,7 @@
 import { moviesStore } from '../store/index'
 import { celebritiesStore } from '../store/index'
 
+
 export default {
 
   computed: {
@@ -36,8 +42,8 @@ export default {
         return imageFilter
     },
      searchedPeople (){
-       const movies = celebritiesStore.searchResults
-       const imageFilter = movies.filter((movie)=>movie.image !== null)
+       const celebrities = celebritiesStore.searchResults
+       const imageFilter = celebrities.filter((celeb)=>celeb.image !== null)
       return imageFilter
     }, 
 

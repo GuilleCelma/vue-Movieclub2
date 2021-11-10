@@ -10,7 +10,7 @@
               <font-awesome-icon :icon="['fas','bars']" />
             </button>
           </div>
-          <div :class="{'hidden': !showMenu, 'flex w-full': showMenu}" class="flex justify-around w-3/5 items-center lg:flex lg:items-center ">
+          <div :class="{'hidden': !showMenu, 'flex w-full': showMenu}" class="flex justify-evenly w-9/12 items-center lg:flex lg:items-center ">
 
             <form class="sm: flex-col">
               <input id="searchBar" v-model="searchValue" class="border-2 border-gray-300 bg-gray-100 h-10 w-40 lg:w-80 mr-0  px-2  rounded-lg text-sm focus:outline-none" type="search" name="search" placeholder="Search.."/>
