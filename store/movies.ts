@@ -235,7 +235,7 @@ export default class Movies extends VuexModule {
 
           // <-----------------------Paginacion de Movies ----------------------->
 
-          @Action({commit:'setMovies'})
+          @Action({commit:'setPageMovies'})
             async loadPage(page:number){
               // Obtener la informacion de las Movies haciendo una llamada a la API con el valor de la variable page interpolado en la URL 
               const moviePage = await axios.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.NUXT_ENV_API_KEY}&language=en-US&page=${page}`)
@@ -244,6 +244,26 @@ export default class Movies extends VuexModule {
               return moviePage.data.results
             }
           
+          @Mutation
+            setPageMovies(movies: any[]){
+  
+                const formatedMovies:movie[] = [] // Variable donde storeamos temporalmente cada movie formateada con la estructura que nos interesa
+      
+                movies.map((movie: any) => { /* Mapeamos el array de Movies devuelto por la API y por cada movie extraemos solo la informacion necesaria,luego pusheamos a la variable anteriormente creada */
+                  const formatedMovie = {
+                    id: movie.id,
+                    title: movie.title,
+                    image: movie.poster_path,
+                    date: movie.release_date,
+                    description: movie.overview.slice(0,100) + '...',
+                    average: movie.vote_average,
+                    favorite: false
+                  }
+                  formatedMovies.push(formatedMovie)
+                })
+                
+                this.movies = formatedMovies // Seteamos el estado movies creado al principio con el nuevo array formateado
+            }
 }
 
 
